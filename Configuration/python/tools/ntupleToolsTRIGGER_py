@@ -1,0 +1,27 @@
+import FWCore.ParameterSet.Config as cms
+
+from UWAnalysis.Configuration.tools.analysisTools import TriggerPaths
+
+def addTRIGGER(process,name,src = 'cleanPatMuons'):
+   process.TFileService = cms.Service("TFileService", fileName = cms.string("analysis.root") )
+   eventTree = cms.EDAnalyzer('EventTreeMaker',
+                              coreCollections = cms.VInputTag(
+                                   cms.InputTag(src)
+                              ),
+
+			     # Trigger Information (Saves booleans of each path to see if the event was fired or not)
+                              trigger = cms.PSet(
+                                  pluginType = cms.string("TriggerFiller"),
+                                  src        = cms.InputTag("patTrigger"),
+                                  paths      = cms.vstring(TriggerPaths)
+                                  ),
+
+                              ),
+   )
+
+   setattr(process, name, eventTree)
+   p = cms.Path(getattr(process,name))
+   setattr(process, name+'Path', p)
+
+
+

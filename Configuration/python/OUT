@@ -1,0 +1,25 @@
+13,16c13,15
+< munuKIN='lepton.pt()>25 && abs(lepton.eta())<2.1&&lepton.isGlobalMuon &&lepton.isTrackerMuon&&!lepton.pfCandidateRef().isNull()'
+< munuSel='lepton.userInt("WWID2011")==1&&abs(lepton.userFloat("ipDXY"))<0.02&&abs(lepton.userFloat("ipDZ"))<0.2&&(lepton.isolationR03().sumPt+lepton.isolationR03().emEt+lepton.isolationR03().hadEt)/lepton.pt()<0.3'
+< 
+< 
+---
+> munuKIN='lepton.pt()>25 && abs(lepton.eta())<2.1&&lepton.isGlobalMuon &&lepton.isTrackerMuon'
+> munuSel='lepton.userFloat("isWWMuon")==1&&(lepton.isolationR03().sumPt+lepton.isolationR03().emEt+lepton.isolationR03().hadEt)/lepton.pt()<0.3&&lepton.userFloat("dxyVtx")<0.02&&lepton.userFloat("dxyVtx")<0.2'
+> #&&met.pt()>30&mt>40&&lepton.userFloat("isWWMuon")==1'
+20c19
+< elenuSelB='abs(lepton.userFloat("ipDXY"))<0.02&&abs(lepton.userFloat("ipDZ"))<0.2&&lepton.gsfTrack().trackerExpectedHitsInner().numberOfHits()==0&&!( abs(lepton.convDcot)<0.02&&abs(lepton.convDist)<0.02)' 
+---
+> elenuSelB='lepton.userFloat("dxyVtx")<0.02&&lepton.userFloat("dxyVtx")<0.2&&lepton.gsfTrack().trackerExpectedHitsInner().numberOfHits()==0&&!( abs(lepton.convDcot)<0.02&&abs(lepton.convDist)<0.02)' 
+42c41
+< MNBBanalysisConfigurator.addDiCandidateModule('diMuons','PATMuPairProducer', 'cleanPatMuons','cleanPatMuons','systematicsMET','patJetsForAnalysis',0,9999,text = '',dR=0.5,recoMode = "",genParticles = "genDaughters")
+---
+> MNBBanalysisConfigurator.addDiCandidateModule('diMuons','PATMuPairProducer', 'patMuonsForAnalysis','patMuonsForAnalysis','patMETs','patJetsForAnalysis',0,9999,text = '',dR=0.5,recoMode = "",genParticles = "genDaughters")
+47c46
+< MNBBanalysisConfigurator.addCandidateMETModule('wCands','PATMuonNuPairProducer','cleanPatMuons','systematicsMET','patJetsForAnalysis',1,9999,'AtLeastOneWCandidate',genParticles="genDaughters")
+---
+> MNBBanalysisConfigurator.addCandidateMETModule('wCands','PATMuonNuPairProducer','patMuonsForAnalysis','patMETs','patJetsForAnalysis',1,9999,'AtLeastOneWCandidate',genParticles="genDaughters")
+53c52
+< MNBBanalysisConfigurator.addDiCandidateModule('diJets','PATJetPairProducer', 'patJetsForAnalysis','patJetsForAnalysis','systematicsMET','patJetsForAnalysis',1,9999,leadingObjectsOnly = True,dR = 0.5,recoMode = "",genParticles = "genDaughters")
+---
+> MNBBanalysisConfigurator.addDiCandidateModule('diJets','PATJetPairProducer', 'patJetsForAnalysis','patJetsForAnalysis','patMETs','patJetsForAnalysis',1,9999,leadingObjectsOnly = True,dR = 0.5,recoMode = "",genParticles = "genDaughters")
